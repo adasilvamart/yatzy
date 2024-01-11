@@ -1,4 +1,9 @@
+from src.Pips import Pips
+
 class Yatzy:
+
+    FIFTY = 50
+    ZERO = 0
 
     def __init__(self, *dice):
         self.dice = list(dice)
@@ -36,11 +41,9 @@ class Yatzy:
         THREE = 3
         return dice.count(THREE) * THREE
 
-
     def fours(self):
         FOUR = 4
         return self.dice.count(FOUR) * FOUR
-
 
     def fives(self):
         FIVE = 5
@@ -64,7 +67,7 @@ class Yatzy:
         if pair:
                 return max(pair) * PAIR
         return 0
-    
+
 
     @staticmethod
     def two_pair(*dice):
@@ -82,6 +85,7 @@ class Yatzy:
             return score
         return 0
 
+
     @staticmethod
     def three_of_a_kind(*dice):
         THREE = 3
@@ -94,6 +98,7 @@ class Yatzy:
             for value in trio:
                 return value * THREE
         return 0
+
 
     @staticmethod
     def four_of_a_kind(*dice):
@@ -113,22 +118,26 @@ class Yatzy:
 
     @staticmethod
     def smallStraight(*dice):
+        FISRT = 1
+        LAST = 6
         throw = list(dice)
-        possible_straight = [1, 2, 3, 4, 5]
+        possible_straight = list(range(FISRT, LAST))
         
         if sorted(throw) == possible_straight:
             return 15
         return 0
     
+
     @staticmethod
     def largeStraight(*dice):
+        LAST = 7
+        FIRST = 2
         throw = list(dice)
-        possible_straight = [2, 3, 4, 5, 6]
+        possible_straight =  list(range(FIRST,LAST))
 
         if sorted(throw) == possible_straight:
             return 20
         return 0
-    
     
     @staticmethod
     def fullHouse(*dice):
@@ -148,4 +157,3 @@ class Yatzy:
         if full.values() != 0:
             return full['pair'] * 2 + full['trio'] * 3
         return 0
-    

@@ -87,6 +87,7 @@ def test_largeStraight():
         assert 20 == yt.largeStraight(6,2,3,4,5)
         assert 20 == yt.largeStraight(2,3,4,5,6)
         assert 0 == yt.largeStraight(1,2,2,4,5)
+        assert 0 == yt.largeStraight(1,3,2,4,5)
   
 
 def test_fullHouse():
