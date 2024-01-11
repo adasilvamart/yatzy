@@ -55,6 +55,7 @@ def test_one_pair():
         assert 10 == yt.score_pair(5,3,3,3,5)
         assert 12 == yt.score_pair(5,3,6,6,5)
         assert 12 == yt.score_pair(6,6,6,6,5)
+        assert 6 == yt.score_pair(2,2,3,3,5)
   
 
 def test_two_Pair():

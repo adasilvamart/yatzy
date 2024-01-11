@@ -76,7 +76,7 @@ class Yatzy:
             if dice.count(num) >= PAIR:
                 pairs.add(num)
 
-        if len(pairs) >= 2:
+        if len(pairs) == 2:
             for value in pairs:
                 score += value * 2
             return score
@@ -114,36 +114,38 @@ class Yatzy:
     @staticmethod
     def smallStraight(*dice):
         throw = list(dice)
-        possible_straights = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]]
-
-        for straight in possible_straights:
-            if straight <= throw:
-                return 15
+        possible_straight = [1, 2, 3, 4, 5]
+        
+        if sorted(throw) == possible_straight:
+            return 15
         return 0
     
-
     @staticmethod
     def largeStraight(*dice):
         throw = list(dice)
-        possible_straights = [[1, 2, 3, 4, 5], [2, 3, 4, 5, 6]]
+        possible_straight = [2, 3, 4, 5, 6]
 
-        for straight in possible_straights:
-            if straight <= throw:
-                return 20
+        if sorted(throw) == possible_straight:
+            return 20
         return 0
     
-
+    
     @staticmethod
     def fullHouse(*dice):
-        if Yatzy.__low_pair(*dice) and Yatzy.three_of_a_kind(*dice):
-            return Yatzy.score_pair(*dice) + Yatzy.three_of_a_kind(*dice)
+        PAIR = 2
+        TRIO = 3
+        full = {
+            'pair': 0,
+            'trio': 0
+        }
+
+        for num in range (6, 0, -1):
+            if dice.count(num) == PAIR:
+                full['pair'] = num 
+            elif dice.count(num) == TRIO:
+                full['trio'] = num
+            
+        if full.values() != 0:
+            return full['pair'] * 2 + full['trio'] * 3
         return 0
     
-
-    @staticmethod
-    def __low_pair(*dice):
-        PAIR = 2
-        for num in range(6, 0, -1):
-            if dice.count(num) == PAIR:
-                return PAIR * num
-        return 0
