@@ -26,38 +26,38 @@ class Yatzy:
 
     @staticmethod
     def ones(*dice):
-        ONE = 1
+        ONE = Pips.ONE
         return dice.count(ONE)
     
 
     @staticmethod
     def twos(*dice):
-        TWO = 2
+        TWO = Pips.TWO
         return dice.count(TWO) * TWO
 
 
     @staticmethod
     def threes(*dice):
-        THREE = 3
+        THREE = Pips.THREE
         return dice.count(THREE) * THREE
 
     def fours(self):
-        FOUR = 4
+        FOUR = Pips.FOUR
         return self.dice.count(FOUR) * FOUR
 
     def fives(self):
-        FIVE = 5
+        FIVE = Pips.FIVE
         return self.dice.count(FIVE) * FIVE
     
 
     def sixes(self):
-        SIX = 6
+        SIX = Pips.SIX
         return self.dice.count(SIX) * SIX
     
 
     @staticmethod
     def score_pair(*dice):
-        PAIR = 2
+        PAIR = Pips.TWO
         pair = set()
 
         for num in range(6, 0, -1):
@@ -71,7 +71,7 @@ class Yatzy:
 
     @staticmethod
     def two_pair(*dice):
-        PAIR = 2
+        PAIR = Pips.TWO
         score = 0
         pairs = set()
 
@@ -88,7 +88,7 @@ class Yatzy:
 
     @staticmethod
     def three_of_a_kind(*dice):
-        THREE = 3
+        THREE = Pips.THREE
         trio = set()
 
         for num in range(6, 0, -1):
@@ -102,7 +102,7 @@ class Yatzy:
 
     @staticmethod
     def four_of_a_kind(*dice):
-        FOUR = 4
+        FOUR = Pips.FOUR
         score = 0
         fours = set()
 
@@ -118,10 +118,8 @@ class Yatzy:
 
     @staticmethod
     def smallStraight(*dice):
-        FISRT = 1
-        LAST = 6
         throw = list(dice)
-        possible_straight = list(range(FISRT, LAST))
+        possible_straight = list(range(1, 6))
         
         if sorted(throw) == possible_straight:
             return 15
@@ -130,19 +128,18 @@ class Yatzy:
 
     @staticmethod
     def largeStraight(*dice):
-        LAST = 7
-        FIRST = 2
         throw = list(dice)
-        possible_straight =  list(range(FIRST,LAST))
+        possible_straight =  list(range(2, 7))
 
         if sorted(throw) == possible_straight:
             return 20
         return 0
     
+
     @staticmethod
     def fullHouse(*dice):
-        PAIR = 2
-        TRIO = 3
+        PAIR = Pips.TWO
+        TRIO = Pips.THREE
         full = {
             'pair': 0,
             'trio': 0
