@@ -2,6 +2,8 @@ from src.Pips import Pips
 
 class Yatzy:
 
+    FIFTEEN = 15
+    TWENTY = 20
     FIFTY = 50
     ZERO = 0
 
@@ -16,9 +18,8 @@ class Yatzy:
 
     @staticmethod
     def yatzy(dice):
-        if dice.count(dice[0]) != 5:
-            return Yatzy.ZERO
-        return 50
+        return Yatzy.ZERO if dice.count(dice[0]) != 5 else Yatzy.FIFTY
+
 
     ones = lambda *dice : dice.count(Pips.ONE) * Pips.ONE
 
@@ -80,22 +81,14 @@ class Yatzy:
 
     @staticmethod
     def smallStraight(*dice):
-        throw = list(dice)
-        possible_straight = list(range(1, 6))
-        
-        if sorted(throw) == possible_straight:
-            return 15
-        return Yatzy.ZERO
+        values = Pips.values()
+        return Yatzy.FIFTEEN if sorted(list(dice)) == values[:-1] else Yatzy.ZERO
     
 
     @staticmethod
     def largeStraight(*dice):
-        throw = list(dice)
-        possible_straight =  list(range(2, 7))
-
-        if sorted(throw) == possible_straight:
-            return 20
-        return Yatzy.ZERO
+        values = Pips.values()
+        return Yatzy.TWENTY if sorted(list(dice)) == values[1:] else Yatzy.ZERO
     
 
     @staticmethod
