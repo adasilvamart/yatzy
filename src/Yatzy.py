@@ -7,10 +7,30 @@ class Yatzy:
     FIFTY = 50
     ZERO = 0
 
-
     def __init__(self, *dice):
         self.dice = list(dice)
+    
 
+    @classmethod
+    def __count_num_x_num(cls, dice, num):
+        return dice.count(num) * num
+    
+    @classmethod
+    def __calc_pip_x_num(cls, group, num):
+        return sum(value * num for value in group)
+
+
+    @classmethod
+    def __filter_num_of_times(cls, dice, num):
+        return set(filter(lambda x: dice.count(x) >= num, Pips.values()))
+    
+
+    @classmethod
+    def __low_pair(cls, *dice):
+        TWO = Pips.TWO
+        pair = set(filter(lambda x: dice.count(x) == Pips.TWO, dice))
+        return sum(value * TWO for value in pair) if pair else Yatzy.ZERO
+    
 
     @staticmethod
     def chance(*dice):
@@ -22,65 +42,68 @@ class Yatzy:
         return Yatzy.ZERO if dice.count(dice[0]) != 5 else Yatzy.FIFTY
 
 
-    @staticmethod
-    def ones(*dice):
-        return dice.count(Pips.ONE) * Pips.ONE
-
-    
-    @staticmethod
-    def twos(*dice):
-        return dice.count(Pips.TWO) * Pips.TWO
-
-
-    @staticmethod
-    def threes(*dice):
-        return dice.count(Pips.THREE) * Pips.THREE
-
-
-    @staticmethod
-    def fours(*dice):
-        return dice.count(Pips.FOUR) * Pips.FOUR
-
-
-    @staticmethod
-    def fives(*dice):
-        return dice.count(Pips.FIVE) * Pips.FIVE
+    """
+        Cambio en el metodo de calculo de las puntuaciones n a un metodo de clase
+    """
+    @classmethod
+    def ones(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.ONE)
     
 
-    @staticmethod
-    def sixes(*dice):
-        return dice.count(Pips.SIX) * Pips.SIX
+    @classmethod
+    def twos(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.TWO)
 
 
-    @staticmethod
-    def score_pair(*dice):
+    @classmethod
+    def threes(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.THREE)
+
+
+    @classmethod
+    def fours(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.FOUR)
+
+
+    @classmethod
+    def fives(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.FIVE)
+
+
+    @classmethod
+    def sixes(cls, *dice):
+        return cls.__count_num_x_num(dice, Pips.SIX)
+
+
+    @classmethod
+    def score_pair(cls, *dice):
         """
-            Use filter and lambda
+            Sustitucion de metodo de filtracion por método de clase __filter_num_of_times
         """
-        pair = set(filter(lambda x: dice.count(x) >= Pips.TWO, dice))
+        pair = cls.__filter_num_of_times(dice, Pips.TWO)
         return max(pair) * Pips.TWO if pair else Yatzy.ZERO
-
-
-    @staticmethod
-    def two_pair(*dice):
-        """
-            Use filter and lambda
-        """
-        pairs = set(filter(lambda x: dice.count(x) >= Pips.TWO, dice))
-        return sum(value * Pips.TWO for value in pairs) if len(pairs) >= Pips.TWO else Yatzy.ZERO
     
-    @staticmethod
-    def three_of_a_kind(*dice):
-        THREE = Pips.THREE
-        trio = {num for num in Pips.values() if dice.count(num) >= THREE}
-        return sum(value * THREE for value in trio) if trio else Yatzy.ZERO
+
+    @classmethod
+    def two_pair(cls, *dice):
+        pairs = cls.__filter_num_of_times(dice, Pips.TWO)
+        
+        if len(pairs) >= Pips.TWO:
+            return cls.__calc_pip_x_num(dice, Pips.TWO)
+            #return sum(value * Pips.TWO for value in pairs)
+        return Yatzy.ZERO
+    
+
+    @classmethod
+    def three_of_a_kind(cls, *dice):
+        trio = cls.__filter_num_of_times(dice, Pips.THREE)
+        return sum(value * Pips.THREE for value in trio) if trio else Yatzy.ZERO
 
 
-    @staticmethod
-    def four_of_a_kind(*dice):
-        FOUR = Pips.FOUR
-        fours = {num for num in Pips.values() if dice.count(num) >= FOUR}
-        return sum(value * FOUR for value in fours) if fours else Yatzy.ZERO
+    @classmethod
+    def four_of_a_kind(cls, *dice):
+        fours = cls.__filter_num_of_times(dice, Pips.FOUR)
+        return sum(value * Pips.FOUR for value in fours) if fours else Yatzy.ZERO
         
 
     @staticmethod
@@ -95,21 +118,11 @@ class Yatzy:
         return Yatzy.TWENTY if sorted(list(dice)) == values[1:] else Yatzy.ZERO
     
 
-    @staticmethod
-    def fullHouse(*dice):
-        PAIR = Pips.TWO
-        TRIO = Pips.THREE
-        full = {
-            'pair': 0,
-            'trio': 0
-        }
-
-        for num in Pips.values():
-            if dice.count(num) == PAIR:
-                full['pair'] = num 
-            elif dice.count(num) == TRIO:
-                full['trio'] = num
-            
-        if full.values() != 0:
-            return full['pair'] * 2 + full['trio'] * 3
+    @classmethod
+    def fullHouse(cls, *dice):
+        """
+            Cambio en el algoritmo
+        """
+        if cls.__low_pair(*dice) and cls.three_of_a_kind(*dice):
+            return Yatzy.__low_pair(*dice) + Yatzy.three_of_a_kind(*dice)
         return Yatzy.ZERO
