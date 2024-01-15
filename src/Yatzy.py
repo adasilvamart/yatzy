@@ -14,7 +14,7 @@ class Yatzy:
 
     @staticmethod
     def chance(*dice):
-        return sum(num for num in dice)
+        return sum(dice)
 
 
     @staticmethod
@@ -37,32 +37,38 @@ class Yatzy:
         return dice.count(Pips.THREE) * Pips.THREE
 
 
-    def fours(self):
-        return self.dice.count(Pips.FOUR) * Pips.FOUR
+    @staticmethod
+    def fours(*dice):
+        return dice.count(Pips.FOUR) * Pips.FOUR
 
 
-    def fives(self):
-        return self.dice.count(Pips.FIVE) * Pips.FIVE
-    
-
-    def sixes(self):
-        return self.dice.count(Pips.SIX) * Pips.SIX
+    @staticmethod
+    def fives(*dice):
+        return dice.count(Pips.FIVE) * Pips.FIVE
     
 
     @staticmethod
+    def sixes(*dice):
+        return dice.count(Pips.SIX) * Pips.SIX
+
+
+    @staticmethod
     def score_pair(*dice):
-        PAIR = Pips.TWO
-        pair = {num for num in Pips.values() if dice.count(num) >= PAIR}
-        return max(pair) * PAIR if pair else Yatzy.ZERO
+        """
+            Use filter and lambda
+        """
+        pair = set(filter(lambda x: dice.count(x) >= Pips.TWO, dice))
+        return max(pair) * Pips.TWO if pair else Yatzy.ZERO
 
 
     @staticmethod
     def two_pair(*dice):
-        PAIR = Pips.TWO
-        pairs = {num for num in Pips.values() if dice.count(num) >= PAIR}
-        return sum(value * PAIR for value in pairs) if len(pairs) >= PAIR else Yatzy.ZERO
-        
-
+        """
+            Use filter and lambda
+        """
+        pairs = set(filter(lambda x: dice.count(x) >= Pips.TWO, dice))
+        return sum(value * Pips.TWO for value in pairs) if len(pairs) >= Pips.TWO else Yatzy.ZERO
+    
     @staticmethod
     def three_of_a_kind(*dice):
         THREE = Pips.THREE
