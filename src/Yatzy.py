@@ -17,7 +17,7 @@ class Yatzy:
 
 
     @staticmethod
-    def yatzy(dice):
+    def yatzy(*dice):
         return Yatzy.ZERO if dice.count(dice[0]) != 5 else Yatzy.FIFTY
 
 

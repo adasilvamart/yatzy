@@ -9,10 +9,10 @@ def test_chance_scores_sum_of_all_dice():
 
 def test_yatzy_scores_50():
         expected = 50
-        actual = yt.yatzy([4,4,4,4,4])
+        actual = yt.yatzy(4,4,4,4,4)
         assert expected == actual
-        assert 50 == yt.yatzy([6,6,6,6,6])
-        assert 0 == yt.yatzy([6,6,6,6,3])
+        assert 50 == yt.yatzy(6,6,6,6,6)
+        assert 0 == yt.yatzy(6,6,6,6,3)
   
 
 def test_1s():
