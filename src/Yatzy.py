@@ -7,6 +7,7 @@ class Yatzy:
     FIFTY = 50
     ZERO = 0
 
+
     def __init__(self, *dice):
         self.dice = list(dice)
 
@@ -21,34 +22,31 @@ class Yatzy:
         return Yatzy.ZERO if dice.count(dice[0]) != 5 else Yatzy.FIFTY
 
 
-    ones = lambda *dice : dice.count(Pips.ONE) * Pips.ONE
+    @staticmethod
+    def ones(*dice):
+        return dice.count(Pips.ONE) * Pips.ONE
 
     
     @staticmethod
     def twos(*dice):
-        TWO = Pips.TWO
-        return dice.count(TWO) * TWO
+        return dice.count(Pips.TWO) * Pips.TWO
 
 
     @staticmethod
     def threes(*dice):
-        THREE = Pips.THREE
-        return dice.count(THREE) * THREE
+        return dice.count(Pips.THREE) * Pips.THREE
 
 
     def fours(self):
-        FOUR = Pips.FOUR
-        return self.dice.count(FOUR) * FOUR
+        return self.dice.count(Pips.FOUR) * Pips.FOUR
 
 
     def fives(self):
-        FIVE = Pips.FIVE
-        return self.dice.count(FIVE) * FIVE
+        return self.dice.count(Pips.FIVE) * Pips.FIVE
     
 
     def sixes(self):
-        SIX = Pips.SIX
-        return self.dice.count(SIX) * SIX
+        return self.dice.count(Pips.SIX) * Pips.SIX
     
 
     @staticmethod
