@@ -17,7 +17,10 @@ class Yatzy:
     
     @classmethod
     def __calc_pip_x_num(cls, group, num):
-        return sum(value * num for value in group)
+        """
+            Cambio por map
+        """
+        return sum(map(lambda x: x * num, group))
 
 
     @classmethod
