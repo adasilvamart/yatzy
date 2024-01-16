@@ -89,8 +89,7 @@ class Yatzy:
         pairs = cls.__filter_num_of_times(dice, Pips.TWO)
         
         if len(pairs) >= Pips.TWO:
-            return cls.__calc_pip_x_num(dice, Pips.TWO)
-            #return sum(value * Pips.TWO for value in pairs)
+            return cls.__calc_pip_x_num(pairs, Pips.TWO)
         return Yatzy.ZERO
     
 
