@@ -1,5 +1,6 @@
 from src.Yatzy import Yatzy as yt
 
+
 def test_chance_scores_sum_of_all_dice():
         expected = 15
         actual = yt.chance(2,3,4,5,1)
@@ -75,7 +76,7 @@ def test_four_of_a_knd():
         assert 20 == yt.fourOfAKind(5,5,5,4,5)
         assert 12 == yt.fourOfAKind(3,3,3,3,3)
         assert 0  == yt.fourOfAKind(3,3,3,2,1)
-  
+          
 
 def test_smallStraight():
         assert 15 == yt.smallStraight(1,2,3,4,5)

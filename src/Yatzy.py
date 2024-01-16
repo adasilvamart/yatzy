@@ -102,7 +102,7 @@ class Yatzy:
     @classmethod
     def fourOfAKind(cls, *dice):
         fours = cls.__filterNumOfTimes(dice, Pips.FOUR)
-        return cls.__calcPipXNum(fours, Pips.FOUR)  if fours else Yatzy.ZERO
+        return cls.__calcPipXNum(fours, Pips.FOUR) if fours else Yatzy.ZERO
         
 
     @staticmethod
