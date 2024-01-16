@@ -12,12 +12,12 @@ class Yatzy:
     
 
     @classmethod
-    def __count_num_x_num(cls, dice, num):
+    def __numCountXNum(cls, dice, num):
         return dice.count(num) * num
     
 
     @classmethod
-    def __calc_pip_x_num(cls, group, num):
+    def __calcPipXNum(cls, group, num):
         """
             Cambio por map
         """
@@ -25,14 +25,14 @@ class Yatzy:
 
 
     @classmethod
-    def __filter_num_of_times(cls, dice, num):
-        return set(filter(lambda x: dice.count(x) >= num, Pips.values()))
+    def __filterNumOfTimes(cls, dice, num):
+        return set(filter(lambda x: dice.count(x) >= num, Pips))
     
 
     @classmethod
-    def __low_pair(cls, *dice):
+    def __lowPair(cls, *dice):
         pair = set(filter(lambda x: dice.count(x) == Pips.TWO, dice))
-        return cls.__calc_pip_x_num(pair, Pips.TWO) if pair else Yatzy.ZERO
+        return cls.__calcPipXNum(pair, Pips.TWO) if pair else Yatzy.ZERO
     
 
     @staticmethod
@@ -50,71 +50,70 @@ class Yatzy:
     """
     @classmethod
     def ones(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.ONE)
+        return cls.__numCountXNum(dice, Pips.ONE)
     
 
     @classmethod
     def twos(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.TWO)
+        return cls.__numCountXNum(dice, Pips.TWO)
 
 
     @classmethod
     def threes(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.THREE)
+        return cls.__numCountXNum(dice, Pips.THREE)
 
 
     @classmethod
     def fours(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.FOUR)
+        return cls.__numCountXNum(dice, Pips.FOUR)
 
 
     @classmethod
     def fives(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.FIVE)
+        return cls.__numCountXNum(dice, Pips.FIVE)
 
 
     @classmethod
     def sixes(cls, *dice):
-        return cls.__count_num_x_num(dice, Pips.SIX)
+        return cls.__numCountXNum(dice, Pips.SIX)
 
 
     @classmethod
-    def score_pair(cls, *dice):
+    def scorePair(cls, *dice):
         """
-            Sustitucion de metodo de filtracion por método de clase __filter_num_of_times
+            Sustitucion de metodo de filtracion por método de clase __filterNumOfTimes
         """
-        pair = cls.__filter_num_of_times(dice, Pips.TWO)
+        pair = cls.__filterNumOfTimes(dice, Pips.TWO)
         return max(pair) * Pips.TWO if pair else Yatzy.ZERO
     
 
     @classmethod
-    def two_pair(cls, *dice):
-        pairs = cls.__filter_num_of_times(dice, Pips.TWO)
-        return cls.__calc_pip_x_num(pairs, Pips.TWO) if len(pairs) >= Pips.TWO else Yatzy.ZERO
+    def twoPair(cls, *dice):
+        pairs = cls.__filterNumOfTimes(dice, Pips.TWO)
+        return cls.__calcPipXNum(pairs, Pips.TWO) if len(pairs) >= Pips.TWO else Yatzy.ZERO
         
     
+    @classmethod
+    def threeOfAKind(cls, *dice):
+        trio = cls.__filterNumOfTimes(dice, Pips.THREE)
+        return cls.__calcPipXNum(trio, Pips.THREE) if trio else Yatzy.ZERO
+
 
     @classmethod
-    def three_of_a_kind(cls, *dice):
-        trio = cls.__filter_num_of_times(dice, Pips.THREE)
-        return cls.__calc_pip_x_num(trio, Pips.THREE) if trio else Yatzy.ZERO
-
-
-    @classmethod
-    def four_of_a_kind(cls, *dice):
-        fours = cls.__filter_num_of_times(dice, Pips.FOUR)
-        return cls.__calc_pip_x_num(fours, Pips.FOUR)  if fours else Yatzy.ZERO
+    def fourOfAKind(cls, *dice):
+        fours = cls.__filterNumOfTimes(dice, Pips.FOUR)
+        return cls.__calcPipXNum(fours, Pips.FOUR)  if fours else Yatzy.ZERO
         
 
     @staticmethod
     def smallStraight(*dice):
-        values = Pips.values()
+        values = list(Pips)
         return Yatzy.FIFTEEN if sorted(list(dice)) == values[:-1] else Yatzy.ZERO
     
 
     @staticmethod
     def largeStraight(*dice):
-        values = Pips.values()
+        values = list(Pips)
         return Yatzy.TWENTY if sorted(list(dice)) == values[1:] else Yatzy.ZERO
     
 
@@ -123,6 +122,6 @@ class Yatzy:
         """
             Cambio en el algoritmo
         """
-        if cls.__low_pair(*dice) and cls.three_of_a_kind(*dice):
-            return Yatzy.__low_pair(*dice) + Yatzy.three_of_a_kind(*dice)
+        if cls.__lowPair(*dice) and cls.threeOfAKind(*dice):
+            return Yatzy.__lowPair(*dice) + Yatzy.threeOfAKind(*dice)
         return Yatzy.ZERO

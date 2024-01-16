@@ -51,30 +51,30 @@ def test_sixes_test():
   
 
 def test_one_pair():
-        assert 6 == yt.score_pair(3,4,3,5,6)
-        assert 10 == yt.score_pair(5,3,3,3,5)
-        assert 12 == yt.score_pair(5,3,6,6,5)
-        assert 12 == yt.score_pair(6,6,6,6,5)
-        assert 6 == yt.score_pair(2,2,3,3,5)
+        assert 6 == yt.scorePair(3,4,3,5,6)
+        assert 10 == yt.scorePair(5,3,3,3,5)
+        assert 12 == yt.scorePair(5,3,6,6,5)
+        assert 12 == yt.scorePair(6,6,6,6,5)
+        assert 6 == yt.scorePair(2,2,3,3,5)
   
 
-def test_two_Pair():
-        assert 16 == yt.two_pair(3,3,5,4,5)
-        assert 18 == yt.two_pair(3,3,6,6,6)
-        assert 0 == yt.two_pair(3,3,6,5,4)
+def test_twoPair():
+        assert 16 == yt.twoPair(3,3,5,4,5)
+        assert 18 == yt.twoPair(3,3,6,6,6)
+        assert 0 == yt.twoPair(3,3,6,5,4)
   
 
 def test_three_of_a_kind():
-        assert 9 == yt.three_of_a_kind(3,3,3,4,5)
-        assert 15 == yt.three_of_a_kind(5,3,5,4,5)
-        assert 9 == yt.three_of_a_kind(3,3,3,3,5)
-  
+        assert 9 == yt.threeOfAKind(3,3,3,4,5)
+        assert 15 == yt.threeOfAKind(5,3,5,4,5)
+        assert 9 == yt.threeOfAKind(3,3,3,3,5)
+
 
 def test_four_of_a_knd():
-        assert 12 == yt.four_of_a_kind(3,3,3,3,5)
-        assert 20 == yt.four_of_a_kind(5,5,5,4,5)
-        assert 12 == yt.four_of_a_kind(3,3,3,3,3)
-        assert 0  == yt.four_of_a_kind(3,3,3,2,1)
+        assert 12 == yt.fourOfAKind(3,3,3,3,5)
+        assert 20 == yt.fourOfAKind(5,5,5,4,5)
+        assert 12 == yt.fourOfAKind(3,3,3,3,3)
+        assert 0  == yt.fourOfAKind(3,3,3,2,1)
   
 
 def test_smallStraight():
