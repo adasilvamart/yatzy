@@ -2,10 +2,8 @@ from src.Pips import Pips
 
 class Yatzy:
 
-    FIFTEEN = 15
-    TWENTY = 20
-    FIFTY = 50
     ZERO = 0
+    FIFTY = 50
 
     def __init__(self, *dice):
         self.dice = list(dice)
@@ -45,9 +43,6 @@ class Yatzy:
         return Yatzy.ZERO if dice.count(dice[0]) != 5 else Yatzy.FIFTY
 
 
-    """
-        Cambio en el metodo de calculo de las puntuaciones n a un metodo de clase
-    """
     @classmethod
     def ones(cls, *dice):
         return cls.__numCountXNum(dice, Pips.ONE)
@@ -80,9 +75,6 @@ class Yatzy:
 
     @classmethod
     def scorePair(cls, *dice):
-        """
-            Sustitucion de metodo de filtracion por método de clase __filterNumOfTimes
-        """
         pair = cls.__filterNumOfTimes(dice, Pips.TWO)
         return max(pair) * Pips.TWO if pair else Yatzy.ZERO
     
@@ -108,13 +100,13 @@ class Yatzy:
     @staticmethod
     def smallStraight(*dice):
         values = list(Pips)
-        return Yatzy.FIFTEEN if sorted(list(dice)) == values[:-1] else Yatzy.ZERO
+        return Yatzy.chance(*dice) if sorted(list(dice)) == values[:-1] else Yatzy.ZERO
     
 
     @staticmethod
     def largeStraight(*dice):
         values = list(Pips)
-        return Yatzy.TWENTY if sorted(list(dice)) == values[1:] else Yatzy.ZERO
+        return  Yatzy.chance(*dice) if sorted(list(dice)) == values[1:] else Yatzy.ZERO
     
 
     @classmethod
